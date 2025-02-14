@@ -1,5 +1,12 @@
 ### Preparing the data
+
+library(haven)
+library(labelled)
+library(readxl)
 library(reshape2)
+
+data <- haven::read_sav("TBD..") 
+
 clinical_data <- data[, c(grep("^(date_measured_gfr|measured_gfr)", colnames(data), value = TRUE),
                                "stdnr", "sex", "dateofbirth", "intnr", "ethnicity")]   
 
@@ -27,7 +34,7 @@ clinical_dataM_measured_GFR[, alldates] <- lapply(clinical_dataM_measured_GFR[, 
 clinical_dataM_measured_GFR$date_measured_gfr[which(clinical_dataM_measured_GFR$date_measured_gfr=="1966-03-22")]=NA
 
 #Calculation of GFR slope
-library(haven)
+
 calculate_gfr_slope <- function(df, gfr_column, date_column) {
   df %>%
     filter(!is.na(!!sym(gfr_column)) & !is.na(!!sym(date_column))) %>%  # Remove NA values
@@ -63,6 +70,7 @@ calculate_gfr_slope <- function(df, gfr_column, date_column) {
 
 
 #calculation of mGFR slope
+
 measured_gfr_slope <- calculate_gfr_slope(clinical_dataM_measured_GFR, "measured_gfr", "date_measured_gfr")
 measured_gfr_slope_new <- measured_gfr_slope %>%
   rename_with(~ paste0(., "_measured"), -stdnr)
