@@ -1,10 +1,9 @@
-### Preparing the data
-
 library(haven)
 library(labelled)
 library(readxl)
 library(reshape2)
 
+### Preparing the data
 data <- haven::read_sav("C:/Users/ganaa/OneDrive/cohort/clinical_data.sav") 
 
 clinical_data <- data[, c(grep("^(date_measured_gfr|measured_gfr)", colnames(data), value = TRUE),
