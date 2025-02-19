@@ -1,3 +1,5 @@
+#Thanks!
+
 ### Load the data
 data <- haven::read_sav("~/GG/Journal club_artciles/Coding Week files/clinical_data.sav")
 
