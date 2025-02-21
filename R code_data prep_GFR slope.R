@@ -1,3 +1,11 @@
+### library
+# this pacman package checks if the package is installed first before caling
+# it from library which was handy for me since I work on my RScript on two
+# Computers... If you do you analysis on the same computer it is probably not
+# necessary to have this package.
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(reshape2, MASS)
+
 ### Load the data
 data <- haven::read_sav("~/GG/Journal club_artciles/Coding Week files/clinical_data.sav")
 
@@ -38,7 +46,7 @@ View(clinical_dataM_measured_GFR)
 
 #Calculation of GFR slope
 
-library(MASS)
+#library(MASS)
 calculate_gfr_slope <- function(df, gfr_column, date_column) {
   df %>%
     filter(!is.na(!!sym(gfr_column)) & !is.na(!!sym(date_column))) %>%  # Remove NA values
